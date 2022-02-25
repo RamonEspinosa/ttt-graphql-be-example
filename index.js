@@ -20,7 +20,7 @@ const logging = process.env.NODE_ENV === "development" ? console.log : false;
   // creates an apollo server instance
   const server = new ApolloServer({
     typeDefs,
-    // resolvers,
+    resolvers,
     context: (req, res) => ({ db, req, res }),
   });
 

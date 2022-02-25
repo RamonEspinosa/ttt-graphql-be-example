@@ -5,6 +5,6 @@ import Post from "./post.js"
 export default {
   Query,
   Mutation,
-  // Person,
-  // Post,
+  Person,
+  Post,
 };
