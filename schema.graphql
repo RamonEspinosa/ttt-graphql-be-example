@@ -1,0 +1,83 @@
+# This is a comment
+
+"""
+A post is an entity created by a Person.
+Every post has an id, a title and an author.
+"""
+type Post {
+  id: ID!
+  title: String!
+  author: Person!
+}
+
+"""
+A Person is an entity who creates Posts for our App.
+Every Person must have an id, name and age.
+The bio field is not required.
+"""
+type Person {
+  id: ID!
+  name: String!
+  age: Int!
+  bio: String
+  posts: [Post!]!
+}
+
+type Query {
+  """
+  A query to list all Person entities in our database.
+  """
+  allPeople: [Person!]!
+  """
+  A query to list all Posts in our database
+  It accepts a 'search' parameter to filter posts by title
+  """
+  allPosts(search: String): [Post!]!
+  """
+  A query to search for one post. May return null
+  """
+  getPost(id: ID!): Post
+  """
+  A query to search for one person. May return null
+  """
+  getPerson(id: ID!): Person
+}
+"""
+A type useful to insert a person in the database
+"""
+input CreatePersonPayload {
+  name: String!
+  age: Int!
+  bio: String
+}
+"""
+A type useful to update a person in the database
+"""
+input UpdatePersonPayload {
+  id: ID!
+  name: String
+  age: Int
+  bio: String
+}
+type Mutation {
+  """
+  A mutation that creates a person. Returns the person that was just created or null if there was an error
+  """
+  createPerson(payload: CreatePersonPayload!): Person
+  """
+  A mutation that updates a person. Returns the person that was just updated or null if there was an error
+  """
+  updatePerson(payload: UpdatePersonPayload!): Person
+  """
+  A mutation that deletes a person. Returns true if the person was deleted.
+  """
+  deletePerson(id: ID!): Boolean
+  """
+  A mutation that creates a post. Returns the post that was just created or null if there was an error
+  """
+  createPost(title: String!, author: ID!): Post
+  """
+  A mutation that deletes a post. Returns true if the post was deleted.
+  """
+  deletePost(id: ID!): Boolean
+}
